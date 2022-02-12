@@ -3,3 +3,16 @@ on: pull_request_review
 jobs:
   labelWhenApproved:
     runs-on: ubuntu-latest
+  
+    env:
+      APPROVALS: "1"
+      GITHUB_TOKEN: ${{ github.token }}
+      ADD_LABEL: "ready for jodha review yeah"
+      
+    steps:
+      - uses: actions/checkout@v2
+      - name: npm install and build webpack
+        run: |
+          npm install
+          npm run build
+      - uses: actions/upload-artifact@main
